@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SLib23T1020520.Models.Entities.Author>
+
+@{
+    ViewBag.Title = "Danh sách tác giả";
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Thêm tác giả</a>
+</p>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">Chưa có tác giả nào.</p>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Mã</th>
+                <th>Tên tác giả</th>
+                <th>Ngày sinh</th>
+                <th>Ngày mất</th>
+                <th>Trạng thái</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AuthorId</td>
+                    <td>@item.AuthorName</td>
+                    <td>@(item.BirthDate?.ToString("dd/MM/yyyy"))</td>
+                    <td>@(item.DeathDate?.ToString("dd/MM/yyyy"))</td>
+                    <td>@(item.IsActive ? "Đang sử dụng" : "Ngừng sử dụng")</td>
+                    <td class="text-end">
+                        <a asp-action="Details" asp-route-id="@item.AuthorId" class="btn btn-sm btn-outline-secondary">Chi tiết</a>
+                        <a asp-action="Edit" asp-route-id="@item.AuthorId" class="btn btn-sm btn-outline-primary">Sửa</a>
+                        <a asp-action="Delete" asp-route-id="@item.AuthorId" class="btn btn-sm btn-outline-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

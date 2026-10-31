@@ -1,0 +1,32 @@
+﻿@model SLib23T1020520.Models.Entities.Author
+
+@{
+    ViewData["Title"] = "Chi tiết tác giả";
+}
+
+<h1>Chi tiết tác giả</h1>
+
+<dl class="row">
+    <dt class="col-sm-3">Mã</dt>
+    <dd class="col-sm-9">@Model.AuthorId</dd>
+
+    <dt class="col-sm-3">Tên tác giả</dt>
+    <dd class="col-sm-9">@Model.AuthorName</dd>
+
+    <dt class="col-sm-3">Tiểu sử</dt>
+    <dd class="col-sm-9" style="white-space: pre-line;">@Model.Biography</dd>
+
+    <dt class="col-sm-3">Ngày sinh</dt>
+    <dd class="col-sm-9">@(Model.BirthDate?.ToString("dd/MM/yyyy"))</dd>
+
+    <dt class="col-sm-3">Ngày mất</dt>
+    <dd class="col-sm-9">@(Model.DeathDate?.ToString("dd/MM/yyyy"))</dd>
+
+    <dt class="col-sm-3">Trạng thái</dt>
+    <dd class="col-sm-9">@(Model.IsActive ? "Đang sử dụng" : "Ngừng sử dụng")</dd>
+</dl>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.AuthorId" class="btn btn-primary">Sửa</a>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</div>

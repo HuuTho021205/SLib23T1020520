@@ -1,0 +1,46 @@
+﻿@model SLib23T1020520.Models.Entities.Author
+
+@{
+    ViewData["Title"] = "Xóa tác giả";
+    var inUsed = (bool?)ViewBag.InUsed ?? false;
+}
+
+<h1>Xóa tác giả</h1>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+@if (inUsed)
+{
+    <div class="alert alert-warning">
+        Tác giả này đang được liên kết với các đầu sách nên không thể xóa.
+    </div>
+}
+else
+{
+    <p class="lead">Bạn có chắc chắn muốn xóa tác giả này không?</p>
+}
+
+<dl class="row">
+    <dt class="col-sm-3">Mã</dt>
+    <dd class="col-sm-9">@Model.AuthorId</dd>
+
+    <dt class="col-sm-3">Tên tác giả</dt>
+    <dd class="col-sm-9">@Model.AuthorName</dd>
+
+    <dt class="col-sm-3">Ngày sinh</dt>
+    <dd class="col-sm-9">@(Model.BirthDate?.ToString("dd/MM/yyyy"))</dd>
+
+    <dt class="col-sm-3">Ngày mất</dt>
+    <dd class="col-sm-9">@(Model.DeathDate?.ToString("dd/MM/yyyy"))</dd>
+
+    <dt class="col-sm-3">Trạng thái</dt>
+    <dd class="col-sm-9">@(Model.IsActive ? "Đang sử dụng" : "Ngừng sử dụng")</dd>
+</dl>
+
+<form asp-action="Delete" asp-route-id="@Model.AuthorId" method="post">
+    @if (!inUsed)
+    {
+        <button type="submit" class="btn btn-danger">Xóa</button>
+    }
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
