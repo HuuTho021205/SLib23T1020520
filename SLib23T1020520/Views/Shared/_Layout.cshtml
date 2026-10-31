@@ -1,0 +1,61 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Quản lý thư viện</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <link rel="stylesheet" href="~/lib/overlay-scrollbars/overlayscrollbars.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/lib/adminlte/css/adminlte.css" />
+    @{
+        await RenderSectionAsync("Styles", false);
+    }
+</head>
+
+<body class="layout-fixed fixed-header fixed-footer sidebar-expand-lg sidebar-open bg-body-tertiary">
+    <div class="app-wrapper">
+
+        @{
+            await Html.RenderPartialAsync("_PartialHeader");
+            await Html.RenderPartialAsync("_PartialSideBar");
+        }
+        
+        <!--begin::App Main-->
+        <main class="app-main">
+            <!--begin::App Content Header-->
+            <div class="app-content-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 class="mb-0">@ViewBag.Title</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::App Content Header-->
+            <!--begin::App Content-->
+            <div class="app-content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+            <!--end::App Content-->
+
+        </main>
+        <!--end::App Main-->
+        @{
+            await Html.RenderPartialAsync("_PartialFooter");
+        }
+    </div>
+
+
+    <script src="~/lib/overlay-scrollbars/overlayscrollbars.browser.es6.min.js"></script>
+    <script src="~/lib/popperjs/popper.min.js"></script>
+    <script src="~/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <script type="module" src="~/lib/adminlte/js/adminlte.js"></script>
+    @{
+        await RenderSectionAsync("Scripts", false);
+    }
+</body>
+
+</html>

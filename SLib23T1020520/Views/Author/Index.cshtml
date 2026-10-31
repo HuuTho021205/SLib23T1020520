@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Author>
+
+@{
+    ViewBag.Title = "Quản lý tác giả";
+}
+
+<div class="card card-primary card-outline mb-4">
+
+    <!-- Ô tìm kiếm + nút bổ sung -->
+    <div class="card-header">
+        <div class="row g-2 align-items-center">
+            <div class="col-md-6">
+                <form action="/Author" method="get">
+                    <div class="input-group">
+                        <input type="text" name="keyword" class="form-control"
+                               placeholder="Nhập tên tác giả cần tìm..." autocomplete="off" />
+                        <button class="btn btn-primary" type="submit">
+                            <i class="bi bi-search"></i> Tìm kiếm
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <a href="/Author/Create" class="btn btn-success">
+                    <i class="bi bi-plus-lg"></i> Bổ sung
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bảng danh sách tác giả -->
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Tên tác giả</th>
+                        <th>Tiểu sử</th>
+                        <th class="text-center">Ngày sinh</th>
+                        <th class="text-center">Ngày mất</th>
+                        <th class="text-center">Trạng thái</th>
+                        <th class="text-nowrap" style="width: 1%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.AuthorName</td>
+                            <td>
+                                <span class="d-inline-block text-truncate" style="max-width: 380px;">
+                                    @item.Biography
+                                </span>
+                            </td>
+                            <td class="text-center">@item.BirthDate?.ToString("dd/MM/yyyy")</td>
+                            <td class="text-center">@item.DeathDate?.ToString("dd/MM/yyyy")</td>
+                            <td class="text-center">
+                                @if (item.IsActive)
+                                {
+                                    <span class="badge text-bg-success">Có</span>
+                                }
+                                else
+                                {
+                                    <span class="badge text-bg-secondary">Không</span>
+                                }
+                            </td>
+                            <td class="text-center text-nowrap">
+                                <a href="/Author/Edit/@item.AuthorId" class="btn btn-sm btn-primary" title="Chỉnh sửa">
+                                    <i class="bi bi-pencil-square"></i> Sửa
+                                </a>
+                                <a href="/Author/Delete/@item.AuthorId" class="btn btn-sm btn-danger" title="Xóa">
+                                    <i class="bi bi-trash"></i> Xóa
+                                </a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

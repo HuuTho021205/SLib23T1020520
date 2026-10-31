@@ -1,0 +1,99 @@
+﻿@model SLib23T1020520.Models.Entities.Author
+
+@{
+    ViewBag.Title = "Bổ sung tác giả";
+}
+
+<div class="card card-primary card-outline mb-4">
+
+    <!-- Tiêu đề -->
+    <div class="card-header">
+        <h3 class="card-title">Thông tin tác giả</h3>
+    </div>
+
+    <!-- Form nhập liệu -->
+    <form action="~/Author/SaveData" method="post">
+
+        <div class="card-body">
+            <input type="hidden" asp-for="AuthorId" />
+            <!-- Tên tác giả -->
+            <div class="mb-3">
+                <label for="AuthorName" class="form-label">
+                    Tên tác giả <span class="text-danger">*</span>
+                </label>
+                <input type="text"
+                       asp-for ="AuthorName"
+                       class="form-control"
+                       placeholder="Nhập tên tác giả..." autofocus
+                       required />
+            </div>
+
+            <!-- Tiểu sử -->
+            <div class="mb-3">
+                <label for="Biography" class="form-label">
+                    Tiểu sử
+                </label>
+                <textarea asp-for="Biography"
+                          class="form-control"
+                          rows="5"
+                          placeholder="Nhập tiểu sử tác giả..."></textarea>
+            </div>
+
+            <!-- Ngày sinh và ngày mất -->
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label for="BirthDate" class="form-label">
+                        Ngày sinh
+                    </label>
+                    <input type="date"
+                           id="BirthDate"
+                           asp-for="BirthDate"
+                           class="form-control" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="DeathDate" class="form-label">
+                        Ngày mất
+                    </label>
+                    <input type="date"
+                           asp-for="DeathDate"
+                           class="form-control" />
+                </div>
+
+            </div>
+
+            <!-- Trạng thái hoạt động -->
+            <div class="mb-3">
+                <label for="IsActive" class="form-label">
+                    Đang hoạt động
+                </label>
+                <select asp-for="IsActive"
+                        class="form-select">
+                    <option value="true" selected>Có</option>
+                    <option value="false">Không</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- Các nút chức năng -->
+        <div class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Lưu
+                </button>
+
+                <a href="~/Author/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Bỏ qua
+                </a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+

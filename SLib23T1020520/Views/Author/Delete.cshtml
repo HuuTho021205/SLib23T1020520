@@ -1,0 +1,98 @@
+﻿@model Author
+
+@{
+    ViewBag.Title = "Xóa tác giả";
+}
+
+<div class="card card-danger card-outline mb-4">
+
+    <!-- Tiêu đề -->
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="bi bi-exclamation-triangle text-danger"></i>
+            Xác nhận xóa tác giả
+        </h3>
+    </div>
+
+    <form action="/Author/Delete" method="post">
+
+        <!-- ID tác giả -->
+        <input type="hidden" name="AuthorId" value="@Model.AuthorId" />
+
+        <div class="card-body">
+
+            <div class="alert alert-danger">
+                <i class="bi bi-exclamation-circle-fill me-2"></i>
+                Bạn có chắc chắn muốn xóa tác giả này không?
+                <br />
+                <strong>Thao tác này không thể hoàn tác!</strong>
+            </div>
+
+            <!-- Thông tin tác giả -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Tên tác giả</label>
+                <div class="form-control bg-light">
+                    @Model.AuthorName
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Tiểu sử</label>
+                <div class="form-control bg-light"
+                     style="min-height: 80px; height: auto;">
+                    @Model.Biography
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Ngày sinh</label>
+                    <div class="form-control bg-light">
+                        @Model.BirthDate?.ToString("dd/MM/yyyy")
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Ngày mất</label>
+                    <div class="form-control bg-light">
+                        @Model.DeathDate?.ToString("dd/MM/yyyy")
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Đang hoạt động</label>
+                <div>
+                    @if (Model.IsActive)
+                    {
+                        <span class="badge text-bg-success">Có</span>
+                    }
+                    else
+                    {
+                        <span class="badge text-bg-secondary">Không</span>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Nút chức năng -->
+        <div class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash"></i> Xác nhận xóa
+                </button>
+
+                <a href="/Author/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Bỏ qua
+                </a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
