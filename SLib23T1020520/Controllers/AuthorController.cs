@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 using SLib23T1020520.BusinessLayer;
 using SLib23T1020520.Models.Entities;
 using System.Threading.Tasks;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 namespace SLib23T1020520.WebApp.Controllers
 {
     public class AuthorController(AuthorService _authorService) : Controller
-    {   
+    {
         // hiển thị danh sách
         public async Task<IActionResult> Index()
         {
@@ -14,12 +15,12 @@ namespace SLib23T1020520.WebApp.Controllers
             {
                 var model = await _authorService.ListAsync();
                 return View(model);
-            }
+        }
             catch (Exception ex)
-            {
+        {
                 //ghi lại log lỗi
                 return Content("Hệ thống hiện đang quá tải. Vui lòng thử lại sau vài phút");
-            }
+        }
         }
         // giao diện để nhập tác giả cần tạo
         public IActionResult Create()
@@ -40,8 +41,9 @@ namespace SLib23T1020520.WebApp.Controllers
             if (model == null)
             {
                 return RedirectToAction("Index");
-            }    
+            }
             return View(model);
+            }
         }
 
         public async Task<IActionResult> SaveData(Author data)
@@ -65,12 +67,26 @@ namespace SLib23T1020520.WebApp.Controllers
             {
                 await _authorService.DeleteAsync(id);
                 return RedirectToAction("Index");
-            }    
+            }
             var model = await _authorService.GetAsync(id);
             if (model == null)
                 return RedirectToAction("Index");
             return View(model);
         }
 
+        /// <summary>
+        /// Lấy tác giả theo mã; trả về <c>null</c> nếu mã không hợp lệ hoặc tác giả không tồn tại.
+        /// </summary>
+        private async Task<Author?> FindAsync(int id)
+        {
+            try
+            {
+                return await _authorService.GetAsync(id);
+            }
+            catch (ValidationException)
+            {
+                return null;
+            }
+        }
     }
 }

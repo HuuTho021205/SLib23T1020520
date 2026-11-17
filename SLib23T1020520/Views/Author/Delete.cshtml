@@ -66,13 +66,13 @@
                 <label class="form-label fw-bold">Đang hoạt động</label>
                 <div>
                     @if (Model.IsActive)
-                    {
+{
                         <span class="badge text-bg-success">Có</span>
-                    }
-                    else
-                    {
+}
+else
+{
                         <span class="badge text-bg-secondary">Không</span>
-                    }
+}
                 </div>
             </div>
 
@@ -93,6 +93,12 @@
             </div>
         </div>
 
-    </form>
+<form asp-action="Delete" asp-route-id="@Model.AuthorId" method="post">
+    @if (!inUsed)
+    {
+        <button type="submit" class="btn btn-danger">Xóa</button>
+    }
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
 
 </div>
