@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SLib23T1020520.BusinessLayer;
 using SLib23T1020520.Models.Entities;
-using System.Threading.Tasks;
 
 namespace SLib23T1020520.WebApp.Controllers
 {
@@ -15,12 +14,12 @@ namespace SLib23T1020520.WebApp.Controllers
             {
                 var model = await _authorService.ListAsync();
                 return View(model);
-        }
+            }
             catch (Exception ex)
-        {
+            {
                 //ghi lại log lỗi
                 return Content("Hệ thống hiện đang quá tải. Vui lòng thử lại sau vài phút");
-        }
+            }
         }
         // giao diện để nhập tác giả cần tạo
         public IActionResult Create()
@@ -43,7 +42,6 @@ namespace SLib23T1020520.WebApp.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
-            }
         }
 
         public async Task<IActionResult> SaveData(Author data)

@@ -1,0 +1,95 @@
+﻿@model Category
+
+@{
+    ViewBag.Title = "Xóa phân loại sách";
+    bool inUsed = ViewBag.InUsed ?? false;
+}
+
+<div class="card card-danger card-outline mb-4">
+
+    <!-- Tiêu đề -->
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="bi bi-exclamation-triangle text-danger"></i>
+            Xác nhận xóa phân loại sách
+        </h3>
+    </div>
+
+    <form action="/Category/Delete/@Model.CategoryId" method="post">
+
+        <div class="card-body">
+
+            @if (inUsed)
+            {
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Không thể xóa phân loại sách này vì đang có dữ liệu liên kết trong hệ thống!
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                    Bạn có chắc chắn muốn xóa phân loại sách này không?
+                    <br />
+                    <strong>Thao tác này không thể hoàn tác!</strong>
+                </div>
+            }
+
+            <!-- Thông tin phân loại sách -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Tên phân loại</label>
+                <div class="form-control bg-light">
+                    @Model.CategoryName
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Mã danh mục cha</label>
+                <div class="form-control bg-light">
+                    @(Model.ParentCategoryId.HasValue? Model.ParentCategoryId.ToString() : "Danh mục gốc")
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Mô tả</label>
+                <div class="form-control bg-light" style="min-height: 80px; height: auto;">
+                    @Model.Description
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Trạng thái sử dụng</label>
+                <div>
+                    @if (Model.IsActive)
+                    {
+                        <span class="badge text-bg-success">Đang sử dụng</span>
+                    }
+                    else
+                    {
+                        <span class="badge text-bg-secondary">Ngừng sử dụng</span>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Nút chức năng -->
+        <div class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+                @if (!inUsed)
+                {
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Xác nhận xóa
+                    </button>
+                }
+
+                <a href="/Category/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Bỏ qua
+                </a>
+            </div>
+        </div>
+
+    </form>
+
+</div>

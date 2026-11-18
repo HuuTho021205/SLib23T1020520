@@ -1,0 +1,120 @@
+﻿@model Publisher
+
+@{
+    ViewBag.Title = "Xóa nhà xuất bản";
+    bool inUsed = ViewBag.InUsed ?? false;
+}
+
+<div class="card card-danger card-outline mb-4">
+
+    <!-- Tiêu đề -->
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="bi bi-exclamation-triangle text-danger"></i>
+            Xác nhận xóa nhà xuất bản
+        </h3>
+    </div>
+
+    <form action="/Publisher/Delete/@Model.PublisherId" method="post">
+
+        <div class="card-body">
+
+            @if (inUsed)
+            {
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Không thể xóa nhà xuất bản này vì đang có sách liên kết trong hệ thống!
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                    Bạn có chắc chắn muốn xóa nhà xuất bản này không?
+                    <br />
+                    <strong>Thao tác này không thể hoàn tác!</strong>
+                </div>
+            }
+
+            <!-- Thông tin nhà xuất bản -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Tên nhà xuất bản</label>
+                <div class="form-control bg-light">
+                    @Model.PublisherName
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Địa chỉ trụ sở</label>
+                <div class="form-control bg-light">
+                    @Model.Address
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Số điện thoại</label>
+                    <div class="form-control bg-light">
+                        @Model.Phone
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Email liên hệ</label>
+                    <div class="form-control bg-light">
+                        @Model.Email
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Website</label>
+                <div class="form-control bg-light">
+                    @Model.Website
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Trạng thái sử dụng</label>
+                    <div>
+                        @if (Model.IsActive)
+                        {
+                            <span class="badge text-bg-success">Đang sử dụng</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-secondary">Ngừng sử dụng</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Thời điểm tạo</label>
+                    <div class="form-control bg-light">
+                        @Model.CreatedAt.ToString("dd/MM/yyyy")
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Nút chức năng -->
+        <div class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+                @if (!inUsed)
+                {
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Xác nhận xóa
+                    </button>
+                }
+
+                <a href="/Publisher/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Bỏ qua
+                </a>
+            </div>
+        </div>
+
+    </form>
+
+</div>

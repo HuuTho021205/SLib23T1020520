@@ -1,0 +1,105 @@
+﻿@model SLib23T1020520.Models.Entities.Publisher
+
+@{
+    ViewBag.Title = Model.PublisherId == 0 ? "Bổ sung nhà xuất bản" : "Cập nhật thông tin nhà xuất bản";
+}
+
+<div class="card card-primary card-outline mb-4">
+
+    <!-- Tiêu đề -->
+    <div class="card-header">
+        <h3 class="card-title">Thông tin nhà xuất bản</h3>
+    </div>
+
+    <!-- Form nhập liệu -->
+    <form action="~/Publisher/SaveData" method="post">
+
+        <div class="card-body">
+            <input type="hidden" asp-for="PublisherId" />
+            <input type="hidden" asp-for="CreatedAt" />
+
+            <!-- Tên nhà xuất bản -->
+            <div class="mb-3">
+                <label for="PublisherName" class="form-label">
+                    Tên nhà xuất bản <span class="text-danger">*</span>
+                </label>
+                <input type="text"
+                       asp-for="PublisherName"
+                       class="form-control"
+                       placeholder="Nhập tên nhà xuất bản..." autofocus
+                       required />
+            </div>
+
+            <!-- Địa chỉ trụ sở -->
+            <div class="mb-3">
+                <label for="Address" class="form-label">
+                    Địa chỉ trụ sở
+                </label>
+                <input type="text"
+                       asp-for="Address"
+                       class="form-control"
+                       placeholder="Nhập địa chỉ trụ sở..." />
+            </div>
+
+            <!-- Số điện thoại và Email -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="Phone" class="form-label">
+                        Số điện thoại
+                    </label>
+                    <input type="text"
+                           asp-for="Phone"
+                           class="form-control"
+                           placeholder="Nhập số điện thoại liên hệ..." />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="Email" class="form-label">
+                        Email liên hệ
+                    </label>
+                    <input type="email"
+                           asp-for="Email"
+                           class="form-control"
+                           placeholder="Nhập địa chỉ email..." />
+                </div>
+            </div>
+
+            <!-- Website -->
+            <div class="mb-3">
+                <label for="Website" class="form-label">
+                    Website
+                </label>
+                <input type="url"
+                       asp-for="Website"
+                       class="form-control"
+                       placeholder="https://..." />
+            </div>
+
+            <!-- Trạng thái sử dụng -->
+            <div class="mb-3">
+                <label for="IsActive" class="form-label">
+                    Trạng thái sử dụng
+                </label>
+                <select asp-for="IsActive" class="form-select">
+                    <option value="true">Đang sử dụng</option>
+                    <option value="false">Ngừng sử dụng</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Các nút chức năng -->
+        <div class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Lưu
+                </button>
+
+                <a href="~/Publisher/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Bỏ qua
+                </a>
+            </div>
+        </div>
+
+    </form>
+
+</div>

@@ -1,0 +1,88 @@
+﻿@model Language
+
+@{
+    ViewBag.Title = "Xóa ngôn ngữ";
+    bool inUsed = ViewBag.InUsed ?? false;
+}
+
+<div class="card card-danger card-outline mb-4">
+
+    <!-- Tiêu đề -->
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="bi bi-exclamation-triangle text-danger"></i>
+            Xác nhận xóa ngôn ngữ
+        </h3>
+    </div>
+
+    <form action="/Language/Delete/@Model.LanguageId" method="post">
+
+        <div class="card-body">
+
+            @if (inUsed)
+            {
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Không thể xóa ngôn ngữ này vì đang có sách liên kết trong hệ thống!
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                    Bạn có chắc chắn muốn xóa ngôn ngữ này không?
+                    <br />
+                    <strong>Thao tác này không thể hoàn tác!</strong>
+                </div>
+            }
+
+            <!-- Thông tin ngôn ngữ -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Mã ngôn ngữ</label>
+                <div class="form-control bg-light">
+                    @Model.LanguageCode
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Tên ngôn ngữ</label>
+                <div class="form-control bg-light">
+                    @Model.LanguageName
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Trạng thái sử dụng</label>
+                <div>
+                    @if (Model.IsActive)
+                    {
+                        <span class="badge text-bg-success">Đang sử dụng</span>
+                    }
+                    else
+                    {
+                        <span class="badge text-bg-secondary">Ngừng sử dụng</span>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Nút chức năng -->
+        <div class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+                @if (!inUsed)
+                {
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Xác nhận xóa
+                    </button>
+                }
+
+                <a href="/Language/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Bỏ qua
+                </a>
+            </div>
+        </div>
+
+    </form>
+
+</div>

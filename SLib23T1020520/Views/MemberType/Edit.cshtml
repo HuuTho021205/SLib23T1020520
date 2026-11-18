@@ -1,0 +1,95 @@
+﻿@model SLib23T1020520.Models.Entities.MemberType
+
+@{
+    ViewBag.Title = Model.MemberTypeId == 0 ? "Bổ sung phân loại độc giả mới" : "Cập nhật thông tin phân loại độc giả";
+}
+
+<div class="card card-primary card-outline mb-4">
+
+    <!-- Tiêu đề -->
+    <div class="card-header">
+        <h3 class="card-title">Thông tin phân loại độc giả</h3>
+    </div>
+
+    <!-- Form nhập liệu -->
+    <form action="~/MemberType/SaveData" method="post">
+
+        <div class="card-body">
+            <input type="hidden" asp-for="MemberTypeId" />
+
+            <!-- Tên loại thành viên -->
+            <div class="mb-3">
+                <label for="TypeName" class="form-label">
+                    Tên phân loại độc giả <span class="text-danger">*</span>
+                </label>
+                <input type="text"
+                       asp-for="TypeName"
+                       class="form-control"
+                       placeholder="Ví dụ: Sinh viên, Giảng viên..." autofocus
+                       required />
+            </div>
+
+            <!-- Các giới hạn mượn sách -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="MaxActiveLoans" class="form-label">
+                        Số sách mượn tối đa <span class="text-danger">*</span>
+                    </label>
+                    <input type="number"
+                           asp-for="MaxActiveLoans"
+                           class="form-control"
+                           min="0"
+                           required />
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="LoanPeriodDays" class="form-label">
+                        Số ngày mượn <span class="text-danger">*</span>
+                    </label>
+                    <input type="number"
+                           asp-for="LoanPeriodDays"
+                           class="form-control"
+                           min="1"
+                           required />
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="MaxRenewals" class="form-label">
+                        Số lần gia hạn tối đa <span class="text-danger">*</span>
+                    </label>
+                    <input type="number"
+                           asp-for="MaxRenewals"
+                           class="form-control"
+                           min="0"
+                           required />
+                </div>
+            </div>
+
+            <!-- Trạng thái sử dụng -->
+            <div class="mb-3">
+                <label for="IsActive" class="form-label">
+                    Trạng thái sử dụng
+                </label>
+                <select asp-for="IsActive" class="form-select">
+                    <option value="true">Đang sử dụng</option>
+                    <option value="false">Ngừng sử dụng</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Các nút chức năng -->
+        <div class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Lưu
+                </button>
+
+                <a href="~/MemberType/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Bỏ qua
+                </a>
+            </div>
+        </div>
+
+    </form>
+
+</div>

@@ -1,0 +1,120 @@
+﻿@model Location
+
+@{
+    ViewBag.Title = "Xóa vị trí lưu trữ";
+    bool inUsed = ViewBag.InUsed ?? false;
+}
+
+<div class="card card-danger card-outline mb-4">
+
+    <!-- Tiêu đề -->
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="bi bi-exclamation-triangle text-danger"></i>
+            Xác nhận xóa vị trí lưu trữ
+        </h3>
+    </div>
+
+    <form action="/Location/Delete/@Model.LocationId" method="post">
+
+        <div class="card-body">
+
+            @if (inUsed)
+            {
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Không thể xóa vị trí lưu trữ này vì đang có sách xếp tại đây!
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                    Bạn có chắc chắn muốn xóa vị trí lưu trữ này không?
+                    <br />
+                    <strong>Thao tác này không thể hoàn tác!</strong>
+                </div>
+            }
+
+            <!-- Thông tin vị trí lưu trữ -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Mã vị trí</label>
+                    <div class="form-control bg-light">
+                        @Model.LocationCode
+                    </div>
+                </div>
+
+                <div class="col-md-8 mb-3">
+                    <label class="form-label fw-bold">Tên vị trí</label>
+                    <div class="form-control bg-light">
+                        @Model.LocationName
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Tầng</label>
+                    <div class="form-control bg-light">
+                        @Model.Floor
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Phòng</label>
+                    <div class="form-control bg-light">
+                        @Model.Room
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Kệ sách</label>
+                    <div class="form-control bg-light">
+                        @Model.Shelf
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Mô tả</label>
+                <div class="form-control bg-light" style="min-height: 80px; height: auto;">
+                    @Model.Description
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Trạng thái sử dụng</label>
+                <div>
+                    @if (Model.IsActive)
+                    {
+                        <span class="badge text-bg-success">Đang sử dụng</span>
+                    }
+                    else
+                    {
+                        <span class="badge text-bg-secondary">Ngừng sử dụng</span>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Nút chức năng -->
+        <div class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+                @if (!inUsed)
+                {
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Xác nhận xóa
+                    </button>
+                }
+
+                <a href="/Location/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Bỏ qua
+                </a>
+            </div>
+        </div>
+
+    </form>
+
+</div>

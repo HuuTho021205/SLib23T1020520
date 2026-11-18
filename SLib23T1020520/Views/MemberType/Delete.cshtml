@@ -1,0 +1,104 @@
+﻿@model MemberType
+
+@{
+    ViewBag.Title = "Xóa phân loại độc giả";
+    bool inUsed = ViewBag.InUsed ?? false;
+}
+
+<div class="card card-danger card-outline mb-4">
+
+    <!-- Tiêu đề -->
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="bi bi-exclamation-triangle text-danger"></i>
+            Xác nhận xóa phân loại độc giả
+        </h3>
+    </div>
+
+    <form action="/MemberType/Delete/@Model.MemberTypeId" method="post">
+
+        <div class="card-body">
+
+            @if (inUsed)
+            {
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Không thể xóa phân loại độc giả này vì đang có độc giả thuộc nhóm này!
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                    Bạn có chắc chắn muốn xóa phân loại độc giả này không?
+                    <br />
+                    <strong>Thao tác này không thể hoàn tác!</strong>
+                </div>
+            }
+
+            <!-- Thông tin loại thành viên -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Tên phân loại độc giả</label>
+                <div class="form-control bg-light">
+                    @Model.TypeName
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Số sách mượn tối đa</label>
+                    <div class="form-control bg-light">
+                        @Model.MaxActiveLoans
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Số ngày mượn</label>
+                    <div class="form-control bg-light">
+                        @Model.LoanPeriodDays
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Số lần gia hạn tối đa</label>
+                    <div class="form-control bg-light">
+                        @Model.MaxRenewals
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Trạng thái sử dụng</label>
+                <div>
+                    @if (Model.IsActive)
+                    {
+                        <span class="badge text-bg-success">Đang sử dụng</span>
+                    }
+                    else
+                    {
+                        <span class="badge text-bg-secondary">Ngừng sử dụng</span>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Nút chức năng -->
+        <div class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+                @if (!inUsed)
+                {
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Xác nhận xóa
+                    </button>
+                }
+
+                <a href="/MemberType/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Bỏ qua
+                </a>
+            </div>
+        </div>
+
+    </form>
+
+</div>

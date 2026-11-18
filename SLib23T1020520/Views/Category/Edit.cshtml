@@ -1,0 +1,81 @@
+﻿@model SLib23T1020520.Models.Entities.Category
+
+@{
+    ViewBag.Title = Model.CategoryId == 0 ? "Bổ sung phân loại sách mới" : "Cập nhật thông tin phân loại sách";
+}
+
+<div class="card card-primary card-outline mb-4">
+
+    <!-- Tiêu đề -->
+    <div class="card-header">
+        <h3 class="card-title">Thông tin phân loại sách</h3>
+    </div>
+
+    <!-- Form nhập liệu -->
+    <form action="~/Category/SaveData" method="post">
+
+        <div class="card-body">
+            <input type="hidden" asp-for="CategoryId" />
+
+            <!-- Tên danh mục -->
+            <div class="mb-3">
+                <label for="CategoryName" class="form-label">
+                    Tên phân loại <span class="text-danger">*</span>
+                </label>
+                <input type="text"
+                       asp-for="CategoryName"
+                       class="form-control"
+                       placeholder="Nhập tên phân loại sách..." autofocus
+                       required />
+            </div>
+
+            <!-- Mã danh mục cha -->
+            <div class="mb-3">
+                <label for="ParentCategoryId" class="form-label">
+                    Mã danh mục cha
+                </label>
+                <input type="number"
+                       asp-for="ParentCategoryId"
+                       class="form-control"
+                       placeholder="Để trống nếu là danh mục gốc..." />
+            </div>
+
+            <!-- Mô tả -->
+            <div class="mb-3">
+                <label for="Description" class="form-label">
+                    Mô tả
+                </label>
+                <textarea asp-for="Description"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Nhập mô tả về phân loại sách..."></textarea>
+            </div>
+
+            <!-- Trạng thái sử dụng -->
+            <div class="mb-3">
+                <label for="IsActive" class="form-label">
+                    Trạng thái sử dụng
+                </label>
+                <select asp-for="IsActive" class="form-select">
+                    <option value="true">Đang sử dụng</option>
+                    <option value="false">Ngừng sử dụng</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Các nút chức năng -->
+        <div class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Lưu
+                </button>
+
+                <a href="~/Category/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Bỏ qua
+                </a>
+            </div>
+        </div>
+
+    </form>
+
+</div>

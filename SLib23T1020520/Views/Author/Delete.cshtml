@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Xóa tác giả";
+    bool inUsed = ViewBag.InUsed ?? false;
 }
 
 <div class="card card-danger card-outline mb-4">
@@ -21,12 +22,22 @@
 
         <div class="card-body">
 
-            <div class="alert alert-danger">
-                <i class="bi bi-exclamation-circle-fill me-2"></i>
-                Bạn có chắc chắn muốn xóa tác giả này không?
-                <br />
-                <strong>Thao tác này không thể hoàn tác!</strong>
-            </div>
+            @if (inUsed)
+            {
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Không thể xóa tác giả này vì đang có sách liên kết trong hệ thống!
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+                    Bạn có chắc chắn muốn xóa tác giả này không?
+                    <br />
+                    <strong>Thao tác này không thể hoàn tác!</strong>
+                </div>
+            }
 
             <!-- Thông tin tác giả -->
             <div class="mb-3">
@@ -38,14 +49,12 @@
 
             <div class="mb-3">
                 <label class="form-label fw-bold">Tiểu sử</label>
-                <div class="form-control bg-light"
-                     style="min-height: 80px; height: auto;">
+                <div class="form-control bg-light" style="min-height: 80px; height: auto;">
                     @Model.Biography
                 </div>
             </div>
 
             <div class="row">
-
                 <div class="col-md-6 mb-3">
                     <label class="form-label fw-bold">Ngày sinh</label>
                     <div class="form-control bg-light">
@@ -59,20 +68,19 @@
                         @Model.DeathDate?.ToString("dd/MM/yyyy")
                     </div>
                 </div>
-
             </div>
 
             <div class="mb-3">
                 <label class="form-label fw-bold">Đang hoạt động</label>
                 <div>
                     @if (Model.IsActive)
-{
+                    {
                         <span class="badge text-bg-success">Có</span>
-}
-else
-{
+                    }
+                    else
+                    {
                         <span class="badge text-bg-secondary">Không</span>
-}
+                    }
                 </div>
             </div>
 
@@ -81,24 +89,19 @@ else
         <!-- Nút chức năng -->
         <div class="card-footer">
             <div class="d-flex justify-content-end gap-2">
-
-                <button type="submit" class="btn btn-danger">
-                    <i class="bi bi-trash"></i> Xác nhận xóa
-                </button>
+                @if (!inUsed)
+                {
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Xác nhận xóa
+                    </button>
+                }
 
                 <a href="/Author/Index" class="btn btn-secondary">
                     <i class="bi bi-x-circle"></i> Bỏ qua
                 </a>
-
             </div>
         </div>
 
-<form asp-action="Delete" asp-route-id="@Model.AuthorId" method="post">
-    @if (!inUsed)
-    {
-        <button type="submit" class="btn btn-danger">Xóa</button>
-    }
-    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
-</form>
+    </form>
 
 </div>

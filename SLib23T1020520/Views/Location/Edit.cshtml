@@ -1,0 +1,116 @@
+﻿@model SLib23T1020520.Models.Entities.Location
+
+@{
+    ViewBag.Title = Model.LocationId == 0 ? "Bổ sung vị trí lưu trữ mới" : "Cập nhật thông tin vị trí lưu trữ";
+}
+
+<div class="card card-primary card-outline mb-4">
+
+    <!-- Tiêu đề -->
+    <div class="card-header">
+        <h3 class="card-title">Thông tin vị trí lưu trữ</h3>
+    </div>
+
+    <!-- Form nhập liệu -->
+    <form action="~/Location/SaveData" method="post">
+
+        <div class="card-body">
+            <input type="hidden" asp-for="LocationId" />
+
+            <!-- Mã vị trí và Tên vị trí -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="LocationCode" class="form-label">
+                        Mã vị trí <span class="text-danger">*</span>
+                    </label>
+                    <input type="text"
+                           asp-for="LocationCode"
+                           class="form-control"
+                           placeholder="Ví dụ: LOC-F1-R1-S1..." autofocus
+                           required />
+                </div>
+
+                <div class="col-md-8 mb-3">
+                    <label for="LocationName" class="form-label">
+                        Tên vị trí <span class="text-danger">*</span>
+                    </label>
+                    <input type="text"
+                           asp-for="LocationName"
+                           class="form-control"
+                           placeholder="Ví dụ: Kệ Sách Văn Học A1..."
+                           required />
+                </div>
+            </div>
+
+            <!-- Tầng, Phòng, Kệ sách -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="Floor" class="form-label">
+                        Tầng
+                    </label>
+                    <input type="text"
+                           asp-for="Floor"
+                           class="form-control"
+                           placeholder="Ví dụ: Tầng 1..." />
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="Room" class="form-label">
+                        Phòng
+                    </label>
+                    <input type="text"
+                           asp-for="Room"
+                           class="form-control"
+                           placeholder="Ví dụ: Phòng Đọc 1..." />
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="Shelf" class="form-label">
+                        Kệ sách
+                    </label>
+                    <input type="text"
+                           asp-for="Shelf"
+                           class="form-control"
+                           placeholder="Ví dụ: Kệ A1..." />
+                </div>
+            </div>
+
+            <!-- Mô tả -->
+            <div class="mb-3">
+                <label for="Description" class="form-label">
+                    Mô tả
+                </label>
+                <textarea asp-for="Description"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Nhập mô tả thêm về vị trí lưu trữ..."></textarea>
+            </div>
+
+            <!-- Trạng thái sử dụng -->
+            <div class="mb-3">
+                <label for="IsActive" class="form-label">
+                    Trạng thái sử dụng
+                </label>
+                <select asp-for="IsActive" class="form-select">
+                    <option value="true">Đang sử dụng</option>
+                    <option value="false">Ngừng sử dụng</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Các nút chức năng -->
+        <div class="card-footer">
+            <div class="d-flex justify-content-end gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Lưu
+                </button>
+
+                <a href="~/Location/Index" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> Bỏ qua
+                </a>
+            </div>
+        </div>
+
+    </form>
+
+</div>

@@ -1,3 +1,80 @@
-﻿@{
-    ViewBag.Title = "Phân loại độc giả";
+﻿@model IEnumerable<MemberType>
+
+@{
+    ViewBag.Title = "Quản lý phân loại độc giả";
 }
+
+<div class="card card-primary card-outline mb-4">
+
+    <!-- Ô tìm kiếm + nút bổ sung -->
+    <div class="card-header">
+        <div class="row g-2 align-items-center">
+            <div class="col-md-6">
+                <form action="/MemberType" method="get">
+                    <div class="input-group">
+                        <input type="text" name="keyword" class="form-control"
+                               placeholder="Nhập tên phân loại độc giả cần tìm..." autocomplete="off" />
+                        <button class="btn btn-primary" type="submit">
+                            <i class="bi bi-search"></i> Tìm kiếm
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <a href="/MemberType/Create" class="btn btn-success">
+                    <i class="bi bi-plus-lg"></i> Bổ sung
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bảng danh sách loại thành viên -->
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover align-middle mb-0">
+                <thead class="table-light text-nowrap">
+                    <tr>
+                        <th class="text-center">Mã</th>
+                        <th>Tên phân loại</th>
+                        <th class="text-center">Số sách mượn tối đa</th>
+                        <th class="text-center">Số ngày mượn</th>
+                        <th class="text-center">Số lần gia hạn tối đa</th>
+                        <th class="text-center">Trạng thái</th>
+                        <th class="text-center" style="width: 1%;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@item.MemberTypeId</td>
+                            <td>@item.TypeName</td>
+                            <td class="text-center">@item.MaxActiveLoans</td>
+                            <td class="text-center">@item.LoanPeriodDays</td>
+                            <td class="text-center">@item.MaxRenewals</td>
+                            <td class="text-center text-nowrap">
+                                @if (item.IsActive)
+                                {
+                                    <span class="badge text-bg-success">Đang sử dụng</span>
+                                }
+                                else
+                                {
+                                    <span class="badge text-bg-secondary">Ngừng sử dụng</span>
+                                }
+                            </td>
+                            <td class="text-center text-nowrap">
+                                <a href="/MemberType/Edit/@item.MemberTypeId" class="btn btn-sm btn-primary" title="Sửa">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="/MemberType/Delete/@item.MemberTypeId" class="btn btn-sm btn-danger" title="Xóa">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
